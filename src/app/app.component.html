@@ -1,0 +1,9 @@
+<app-table [rows]="rows">
+  <ngvn-column header="ID" key="id"></ngvn-column>
+  <ngvn-column header="Name" key="name"></ngvn-column>
+  <ngvn-column header="Date" key="date" [dataType]="COL_DATA_TYPE.DATE">
+    <ng-template appHeader>
+      <strong><em>Created Date</em></strong>
+    </ng-template>
+  </ngvn-column>
+</app-table>

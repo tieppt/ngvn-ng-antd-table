@@ -1,0 +1,33 @@
+<nz-table #table [nzData]="rows">
+  <thead>
+  <tr>
+    <th *ngFor="let column of columns">
+      <ng-container *ngIf="column.tplHeader">
+        <ng-container *ngTemplateOutlet="column.tplHeader.template"></ng-container>
+      </ng-container>
+      <ng-container *ngIf="!column.tplHeader">
+        {{ column.header }}
+      </ng-container>
+    </th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let data of table.data">
+    <td *ngFor="let column of columns">
+      <ng-container *ngIf="column.tplCell">
+        <ng-container *ngTemplateOutlet="column.tplCell.template; context: { $implicit: data }"></ng-container>
+      </ng-container>
+      <ng-container *ngIf="!column.tplCell">
+        <ng-container [ngSwitch]="column.dataType">
+          <ng-container *ngSwitchCase="COL_DATA_TYPE.DATE">
+            {{ data[column.key] | date }}
+          </ng-container>
+          <ng-container *ngSwitchDefault>
+            {{ data[column.key] }}
+          </ng-container>
+        </ng-container>
+      </ng-container>
+    </td>
+  </tr>
+  </tbody>
+</nz-table>
