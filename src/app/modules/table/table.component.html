@@ -1,7 +1,24 @@
-<nz-table #table [nzData]="rows">
+<nz-table
+  #table
+  nzHideOnSinglePage
+  nzShowSizeChanger
+  [nzLoading]="loading"
+  [nzData]="rows"
+  [nzPageIndex]="page"
+  [nzPageSize]="pageSize"
+  [nzTotal]="totalRows"
+  [nzFrontPagination]="clientPagination"
+  (nzPageIndexChange)="pageIndexChange.emit($event)"
+  (nzPageSizeChange)="pageSizeChange.emit($event)"
+>
   <thead>
   <tr>
-    <th *ngFor="let column of columns">
+    <th *ngFor="let column of columns"
+        [nzShowSort]="column.sortable"
+        [nzSortOrder]="column.sortOrder"
+        [nzSortFn]="column.sortFn"
+        (nzSortOrderChange)="column.sortChange.emit({ key: column.key, order: $event })"
+    >
       <ng-container *ngIf="column.tplHeader">
         <ng-container *ngTemplateOutlet="column.tplHeader.template"></ng-container>
       </ng-container>
